@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<main>
+  {% for order in orders %}
+    <div class="order-card" align="center">
+      <p>
+        <h2>Номер стола: {{ order.table_number }}</h2>
+      </p>
+      <p>
+        <table class="dish-table">
+          <tr>
+            <th>Блюдо</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+        </tr>
+        {% for order_item in order.orderitem_set.all %}
+        <tr>
+          <td>{{ order_item.dish.name }}</td> 
+          <td>{{ order_item.quantity }}</td> 
+          <td>{{ order_item.total_price }} RUB</td> 
+        </tr>
+        {% endfor %}
+        </table>
+      </p>
+        <h3><p>Общая стоимость заказа: {{ order.total_price }} RUB</p></h3>
+        <p><h4>Статус заказа: {{ order.get_status_display }}</h4></p>
+        <a class="button-class" href={% url 'ordering:order_detail' order.id %}>Подробнее</a>
+    </div>
+    <hr>
+  {% endfor %}
+</main>
+{% endblock %}

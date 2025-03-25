@@ -1,0 +1,22 @@
+{% load tags %}
+<header class="header-container">
+  <div class="header-left">
+    {% if '/total_price' not in request.path %}
+      <a href="{% url 'total_price' %}" class="header-link">Итоговая выручка</a>
+    {% endif %}
+  </div>
+  
+  <div class="header-center">
+    <p>
+      {% if request|should_show_home_link %}
+        <a href="{% url 'index' %}" class="header-link">На главную</a>
+      {% else %}
+        <a href="{% url 'ordering:create_order' %}" class="header-link">Сделать заказ</a>
+      {% endif %}
+    </p>
+  </div>
+  
+  <div class="header-right">
+    <a href="{% url 'search' %}" class="header-link">Поиск заказа</a>
+  </div>
+</header>

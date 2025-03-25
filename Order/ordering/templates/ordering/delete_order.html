@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+  <form method="post">
+    {% csrf_token %}
+        
+    {{ form.as_p }}
+
+    <h3>Блюда:</h3>
+    {{ formset.management_form }}
+    {% for item_form in formset %}
+      <div class="order-item-form">
+        {{ item_form.as_p }}
+      </div>
+    {% endfor %}
+
+    <button type="submit">Удалить</button>
+  </form>
+</body>
+{% endblock %}

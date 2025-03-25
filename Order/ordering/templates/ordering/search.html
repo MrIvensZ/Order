@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<main>
+    <h1>Поиск заказов</h1>
+    <form class="order-form" method="get">
+        {{ form.query }}
+        <button type="submit">Найти</button>
+    </form>
+
+    {% if query %}
+        <h2>Результаты для "{{ query }}":</h2>
+        <ul>
+            {% for order in results %}
+                <li>
+                    Заказ #{{ order.id }}: Стол {{ order.table_number }}, 
+                    Статус: {{ order.get_status_display }}
+                    <a href={% url 'ordering:order_detail' order.id %}>Подробнее</a>
+                </li>
+            {% empty %}
+                <li>Ничего не найдено.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</main>
+{% endblock %}
